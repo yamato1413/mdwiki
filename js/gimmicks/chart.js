@@ -1,19 +1,20 @@
-(function($) {
-    'use strict';
+(function ($) {
+    "use strict";
 
-    var scripturl = '//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js';
+    var scripturl =
+        "//cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js";
 
     var chartGimmick = {
-        name: 'chart',
+        name: "chart",
         version: $.md.version,
-        once: function() {
-            $.md.linkGimmick(this, 'chart', chart);
+        once: function () {
+            $.md.linkGimmick(this, "chart", chart);
 
             // load the chart js
             $.md.registerScript(this, scripturl, {
-                license: 'MIT',
-                loadstage: 'skel_ready',
-                finishstage: 'gimmick'
+                license: "MIT",
+                loadstage: "skel_ready",
+                finishstage: "gimmick"
             });
         }
     };
@@ -22,8 +23,7 @@
     var log = $.md.getLogger();
 
     function chart($links, opt, text) {
-        return $links.each (function (i, link){
-
+        return $links.each(function (i, link) {
             // Get the options for this gimmick
             //      labelColumn: This is a string the indicates the column that will be used to
             //                   label the data points
@@ -35,34 +35,34 @@
             //      chartType:   This string is the type of chart we want to render. Bar, Line,
             //                   or Radar. Defaults to Line.
             var default_options = {
-                chartType: 'Line',
-                canvasId: 'chartGimmick' + Math.floor((Math.random() * 1000) + 1),
+                chartType: "Line",
+                canvasId: "chartGimmick" + Math.floor(Math.random() * 1000 + 1),
                 chartOptions: {
                     responsive: false
                 }
             };
-            var options = $.extend ({}, default_options, opt);
+            var options = $.extend({}, default_options, opt);
 
             var $link = $(link);
 
             var table = $link.parents().find("table").last();
             if (table.length === 0) {
-                log.error('Chart Gimmick: No tables found on the page.');
+                log.error("Chart Gimmick: No tables found on the page.");
                 $link.remove();
                 return;
             }
 
             // Replace the Gimmick with the canvas that chartJS needs
             var myHtml = $('<canvas id="' + options.canvasId + '"></canvas>');
-            myHtml.width(options.width || '450px');
-            myHtml.height(options.height || '250px');
+            myHtml.width(options.width || "450px");
+            myHtml.height(options.height || "250px");
             $link.replaceWith(myHtml);
 
             // This is the object that is given to the chart frame work for rendering. It will be
             // built up by processing the html table that is found on the table.
             var chartConfig = {
-                "datasets": [],
-                "labels": []
+                datasets: [],
+                labels: []
             };
 
             var chartAvailableToRender = true;
@@ -74,17 +74,16 @@
             var dataColumnIndices = [];
 
             // Get the index of the columns that we care about for charting
-            table.find("th").each(function(index){
-
+            table.find("th").each(function (index) {
                 // This is the column that labels each data point
-                if(this.textContent === options.labelColumn) {
+                if (this.textContent === options.labelColumn) {
                     labelColumnIndex = index;
                 }
 
                 // Check if this is a data column
                 else {
-                    for(var i = 0; i < options.dataColumns.length; i++) {
-                        if(this.textContent === options.dataColumns[i]) {
+                    for (var i = 0; i < options.dataColumns.length; i++) {
+                        if (this.textContent === options.dataColumns[i]) {
                             dataColumnIndices.push(index);
                         }
                     }
@@ -92,46 +91,52 @@
             });
 
             // Get the data
-            table.find("tr").each(function(rowIndex){
-                $(this).find("td").each(function(colIndex){
+            table.find("tr").each(function (rowIndex) {
+                $(this)
+                    .find("td")
+                    .each(function (colIndex) {
+                        if (colIndex === labelColumnIndex) {
+                            chartConfig.labels.push(this.textContent);
+                        } else {
+                            for (var i = 0; i < dataColumnIndices.length; i++) {
+                                if (colIndex === dataColumnIndices[i]) {
+                                    if (chartConfig.datasets[i] === undefined) {
+                                        chartConfig.datasets[i] = {};
+                                        chartConfig.datasets[i].data = [];
+                                    }
 
-                    if(colIndex === labelColumnIndex) {
-                        chartConfig.labels.push(this.textContent);
-                    } else {
-                        for(var i = 0; i < dataColumnIndices.length; i++) {
-                            if(colIndex === dataColumnIndices[i]) {
-
-                                if(chartConfig.datasets[i] === undefined) {
-                                    chartConfig.datasets[i] = {};
-                                    chartConfig.datasets[i].data = [];
+                                    chartConfig.datasets[i].data.push(
+                                        this.textContent
+                                    );
                                 }
-
-                                chartConfig.datasets[i].data.push(this.textContent);
                             }
                         }
-                    }
-                });
+                    });
             });
 
             // No Chart data found
             if (chartConfig.datasets[i] === undefined) {
                 chartAvailableToRender = false;
-                log.error('Chart Gimmick: No data was found for the chart. Make sure that there ' +
-                    'is a tables on the page. Check that your ' +
-                    'column headers match the chart configuration.');
+                log.error(
+                    "Chart Gimmick: No data was found for the chart. Make sure that there " +
+                        "is a tables on the page. Check that your " +
+                        "column headers match the chart configuration."
+                );
             }
 
             if (chartAvailableToRender) {
                 var canvas = document.getElementById(options.canvasId);
-                var ctx = canvas.getContext('2d');
-                $.md.stage('postgimmick').subscribe(function(done) {
-                    setTimeout(function() {
-                        new Chart(ctx)[options.chartType](chartConfig, options.chartOptions);
+                var ctx = canvas.getContext("2d");
+                $.md.stage("postgimmick").subscribe(function (done) {
+                    setTimeout(function () {
+                        new Chart(ctx)[options.chartType](
+                            chartConfig,
+                            options.chartOptions
+                        );
                     });
-                    done(); 
+                    done();
                 });
             }
         });
     }
-
-}(jQuery));
+})(jQuery);

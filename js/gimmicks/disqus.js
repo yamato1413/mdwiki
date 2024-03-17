@@ -1,37 +1,40 @@
-(function($) {
+(function ($) {
     var disqusGimmick = {
-        name: 'disqus',
+        name: "disqus",
         version: $.md.version,
-        once: function() {
-            $.md.linkGimmick(this, 'disqus', disqus);
+        once: function () {
+            $.md.linkGimmick(this, "disqus", disqus);
         }
     };
     $.md.registerGimmick(disqusGimmick);
 
     var alreadyDone = false;
-    var disqus = function($links, opt, text) {
+    var disqus = function ($links, opt, text) {
         var default_options = {
-            identifier: ''
+            identifier: ""
         };
-        var options = $.extend (default_options, opt);
-        var disqus_div = $('<div id="disqus_thread" class="md-external md-external-noheight md-external-nowidth" >' + '<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div>');
-        disqus_div.css ('margin-top', '2em');
-        return $links.each(function(i,link) {
+        var options = $.extend(default_options, opt);
+        var disqus_div = $(
+            '<div id="disqus_thread" class="md-external md-external-noheight md-external-nowidth" >' +
+                '<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a></div>'
+        );
+        disqus_div.css("margin-top", "2em");
+        return $links.each(function (i, link) {
             if (alreadyDone === true) {
                 return;
             }
             alreadyDone = true;
 
             var $link = $(link);
-            var disqus_shortname = $link.attr('href');
+            var disqus_shortname = $link.attr("href");
 
             if (disqus_shortname !== undefined && disqus_shortname.length > 0) {
                 // insert the div
-                $link.remove ();
+                $link.remove();
                 // since disqus need lot of height, always but it on the bottom of the page
-                $('#md-content').append(disqus_div);
-                if ($('#disqus_thread').length > 0) {
-                    (function() {
+                $("#md-content").append(disqus_div);
+                if ($("#disqus_thread").length > 0) {
+                    (function () {
                         // all disqus_ variables are used by the script, they
                         // change the config behavious.
                         // see: http://help.disqus.com/customer/portal/articles/472098-javascript-configuration-variables
@@ -52,14 +55,20 @@
                         }
 
                         // dynamically load the disqus script
-                        var dsq = document.createElement('script');
-                        dsq.type = 'text/javascript';
+                        var dsq = document.createElement("script");
+                        dsq.type = "text/javascript";
                         dsq.async = true;
-                        dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-                        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                        dsq.src =
+                            "http://" +
+                            disqus_shortname +
+                            ".disqus.com/embed.js";
+                        (
+                            document.getElementsByTagName("head")[0] ||
+                            document.getElementsByTagName("body")[0]
+                        ).appendChild(dsq);
                     })();
                 }
             }
         });
     };
-}(jQuery));
+})(jQuery);

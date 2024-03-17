@@ -1,8 +1,8 @@
-(function($) {
+(function ($) {
     var prismGimmick = {
-        name: 'prism',
-        load: function() {
-            $.md.stage('gimmick').subscribe(function(done) {
+        name: "prism",
+        load: function () {
+            $.md.stage("gimmick").subscribe(function (done) {
                 prism_highlight();
                 done();
             });
@@ -121,23 +121,23 @@
         "vim",
         "wiki",
         "xml",
-        "yaml",
+        "yaml"
     ];
     $.md.registerGimmick(prismGimmick);
 
-    function prism_highlight () {
+    function prism_highlight() {
         // marked adds lang-ruby, lang-csharp etc to the <code> block like in GFM
-        var $codeblocks = $('pre code[class^=lang-]');
-        $codeblocks.each(function() {
-                var $this = $(this);
-                var classes = $this.attr('class');
-                var lang = classes.substring(5);
-                if (supportedLangs.indexOf(lang) < 0) {
-                    return;
-                }
-                $this.removeClass(classes);
-                $this.addClass('language-' + lang);            
-              });
+        var $codeblocks = $("pre code[class^=lang-]");
+        $codeblocks.each(function () {
+            var $this = $(this);
+            var classes = $this.attr("class");
+            var lang = classes.substring(5);
+            if (supportedLangs.indexOf(lang) < 0) {
+                return;
+            }
+            $this.removeClass(classes);
+            $this.addClass("language-" + lang);
+        });
         Prism.highlightAll();
     }
-}(jQuery));
+})(jQuery);
