@@ -2,7 +2,7 @@
 
 ## Change to Version 0.7.0 (March 2024)
 
--   Removed footer and footer obligation to keep footer
+-   Removed footer and footer obligation (no footer is displayed by default)
 -   Removed gimmicks that are no longer working
 -   Fix XSS issue that never got released
 
