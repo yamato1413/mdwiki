@@ -13,7 +13,10 @@
     "grunt-contrib-uglify": "~0.2.4",
     "grunt-shell": "~0.4.0"
   },
+  "scripts": {
+    "build": "grunt"
+  },
   "engines": {
-    "node": ">=0.8.0"
+    "node": ">=18"
   }
 }
