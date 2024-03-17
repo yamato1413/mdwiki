@@ -13,7 +13,7 @@
         script.type = "text/javascript";
         script.src = $.md.prepareLink(
             "cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML",
-            { forceHTTP: true }
+            { forceSSL: true }
         );
         document.getElementsByTagName("head")[0].appendChild(script);
     }
