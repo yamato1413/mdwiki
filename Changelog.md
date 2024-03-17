@@ -1,6 +1,6 @@
 # Changelog
 
-## Change to Version 0.7.0 (March 2023)
+## Change to Version 0.7.0 (March 2024)
 
 -   Removed footer and footer obligation to keep footer
 -   Removed gimmicks that are no longer working
