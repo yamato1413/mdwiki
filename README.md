@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/Dynalon/mdwiki.png?branch=master)](https://travis-ci.org/Dynalon/mdwiki)
-
 
 MDwiki
 ======
@@ -40,7 +38,4 @@ How to build from source
 
 6. Find the `mdwiki.html` in the `release/` and `dist/` folder
 
-
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/Dynalon/mdwiki/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
