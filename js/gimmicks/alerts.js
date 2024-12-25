@@ -48,7 +48,7 @@
             "advertimiento"
         ];
         var hint = ["hint", "tipp", "tip", "hinweis"];
-        var danger = ["danger", "achtung", "peligro"];
+        var danger = ["danger"];
         var exp = note.concat(warning);
         exp = exp.concat(hint);
         exp = exp.concat(danger);
