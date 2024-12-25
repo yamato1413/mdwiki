@@ -29,6 +29,8 @@
                 $p.addClass("alert-success");
             } else if (type === "warning") {
                 $p.addClass("alert-warning");
+            } else if (type === "danger") {
+                $p.addClass("alert-danger");
             }
         });
     }
@@ -46,6 +48,7 @@
             "advertimiento"
         ];
         var hint = ["hint", "tipp", "tip", "hinweis"];
+        var danger = ['danger', 'achtung', 'peligro'];
         var exp = note.concat(warning);
         exp = exp.concat(hint);
         var matches = [];
@@ -66,6 +69,8 @@
                         alertType = "warning";
                     } else if ($.inArray(trigger, hint) >= 0) {
                         alertType = "hint";
+                    } else if ($.inArray(trigger, danger) >= 0) {
+                        returnval = 'danger';
                     }
                     matches.push({
                         p: $par,
