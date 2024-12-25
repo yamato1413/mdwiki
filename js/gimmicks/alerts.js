@@ -48,9 +48,10 @@
             "advertimiento"
         ];
         var hint = ["hint", "tipp", "tip", "hinweis"];
-        var danger = ['danger', 'achtung', 'peligro'];
+        var danger = ["danger", "achtung", "peligro"];
         var exp = note.concat(warning);
         exp = exp.concat(hint);
+        exp = exp.concat(danger);
         var matches = [];
 
         $("p").filter(function () {
@@ -70,7 +71,7 @@
                     } else if ($.inArray(trigger, hint) >= 0) {
                         alertType = "hint";
                     } else if ($.inArray(trigger, danger) >= 0) {
-                        returnval = 'danger';
+                        alertType = "danger";
                     }
                     matches.push({
                         p: $par,
